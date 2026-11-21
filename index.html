@@ -120,6 +120,8 @@ header{padding:calc(14px + env(safe-area-inset-top)) 12px 6px 20px}
 <div id="fid_wrap"><label style="margin-top:18px">Face ID</label>
 <p class="mu" style="margin:0 0 8px">Unlock on this device with Face ID. Needs iOS 18 or newer; your password still works.</p>
 <button type="button" id="fid" style="width:100%"></button></div>
+<label style="margin-top:18px">Current password</label>
+<div class="row"><input id="cp" type="password" readonly autocomplete="off" aria-label="Current password" placeholder="Hidden"><button type="button" id="cps">Show</button></div>
 <label style="margin-top:18px">Change password</label>
 <div class="row"><input id="np" type="password" placeholder="New password (8+ characters)" autocomplete="new-password"><button id="pwc">Change</button></div>
 <div class="btns"><button id="dd_x">Close</button></div></dialog>
@@ -324,5 +326,9 @@ $('#fb').onclick=async()=>{
   await openWith(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:ub(f.iv)},k,ub(f.ct))))}
  catch(e){return lm(e.name=='NotAllowedError'?'Face ID was cancelled.':'Face ID failed. Use your password.')}
  if(!$('#lock').hidden){delete localStorage.kb_face;$('#fb').hidden=true;lm('Face ID is out of date. Use your password, then turn Face ID on again.')}};
+/* ---- show the current password (hides itself after 15 s or when the dialog closes) ---- */
+let pwT;const hidePw=()=>{clearTimeout(pwT);$('#cp').value='';$('#cp').type='password';$('#cps').textContent='Show'};
+$('#cps').onclick=()=>{if($('#cp').type=='text')return hidePw();$('#cp').value=PW;$('#cp').type='text';$('#cps').textContent='Hide';pwT=setTimeout(hidePw,15000)};
+$('#dd').addEventListener('close',hidePw);
 boot();
 </script></body></html>

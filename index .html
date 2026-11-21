@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>My Kanban</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.35 "Segoe UI",system-ui,sans-serif;background:#eef1f6;color:#1f2430;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+[hidden]{display:none!important}
+input,select,button,textarea{font:inherit;color:inherit}
+input,select,button,textarea{padding:9px 14px;border:1px solid #d5dae3;border-radius:8px;background:#fff}
+button{cursor:pointer}button:hover{background:#f3f5f9}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:14px 16px;flex:0 0 auto}
+.tx{display:flex;flex-direction:column;margin-right:8px}
+h1{margin:0;font-size:30px;line-height:1.1}
+#save{color:#276b32;font-size:14px}#save.err{color:#b42318}
+#mb{display:none;width:44px;height:44px;padding:0;place-items:center}
+#ctl{display:contents}
+.gap{flex:1}
+.ck{display:flex;gap:8px;align-items:center;margin:0;color:inherit;font-size:16px}
+input[type=checkbox]{width:18px;height:18px;padding:0}
+#q{width:270px}
+#main{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:minmax(0,1fr);gap:18px;padding:0 16px 16px;flex:1;min-height:0;position:relative}
+.col{background:#fff;border:1px solid #dde2ea;border-radius:14px;padding:16px 12px 12px;display:flex;flex-direction:column;min-height:0}
+.col.over{outline:2px dashed #5b86cc;outline-offset:-2px;background:#f1f6ff}
+.stack{display:flex;flex-direction:column;gap:18px;min-height:0}.stack .col{flex:1}
+.ch{display:flex;justify-content:space-between;padding:0 6px}.ch b{font-size:20px}.ch span{color:#6b7280}
+.sub{color:#6b7280;font-size:15px;padding:0 6px 8px}
+.list{flex:1;overflow:auto;display:flex;flex-direction:column;gap:12px;padding:4px;min-height:0}
+.card{border:1px solid #e1e5ec;border-left:5px solid var(--c,#cfd4dc);border-radius:10px;padding:12px 16px;background:#fff;cursor:grab;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;box-shadow:0 1px 2px #0000000d}
+.ti{font-size:19px;font-weight:500;margin-bottom:4px}
+.mu{color:#6b7280;margin:3px 0}
+.due{color:#b45309;font-weight:700;margin:3px 0}.due.late{color:#b42318}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+.pill{padding:1px 12px;border-radius:999px;font-size:15px;border:1px solid #ccc;line-height:1.5}
+.eff{background:none;border:1px dashed #666;color:#444}
+.acts{display:flex;gap:8px;margin-top:8px}.acts button{padding:3px 12px;font-size:15px;border-radius:6px}
+.dn .ti{text-decoration:line-through;color:#888}
+.add{margin-top:8px;border:1px dashed #c4cad4;color:#6b7280;width:100%;background:#fff}
+dialog{border:1px solid #d5dae3;border-radius:14px;padding:20px;width:min(520px,94vw)}
+dialog::backdrop{background:#0006}
+dialog input,dialog select,dialog textarea{width:100%}
+label{display:block;margin:10px 0 4px;color:#555;font-size:14px}
+.row{display:flex;gap:8px;margin:6px 0}.row>*{flex:1}.row button{flex:0}
+.btns{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
+.tgl{cursor:pointer;opacity:.4}.tgl.on{opacity:1}
+#lock{position:fixed;inset:0;background:#eef1f6;display:flex;align-items:center;justify-content:center;z-index:9}
+#lock form{background:#fff;border:1px solid #dde2ea;border-radius:14px;padding:24px;width:min(360px,92vw)}
+#lock input{width:100%;margin:6px 0}#lm{color:#b42318;min-height:1.3em;font-size:15px}
+.ghost{position:fixed;z-index:50;pointer-events:none;margin:0;transform:rotate(3deg);box-shadow:0 16px 32px #1f243040;cursor:grabbing}
+.card.ph{opacity:.3;border-style:dashed}
+body.dragging{user-select:none;-webkit-user-select:none}
+#hint{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#1f2430;color:#fff;padding:9px 16px;border-radius:999px;font-size:14px;z-index:60;display:none;white-space:nowrap}#hint.show{display:block}
+#pg{display:none;flex-direction:column;align-items:center;padding:0 20px calc(8px + env(safe-area-inset-bottom))}
+.dots{display:flex}
+#pg button{width:28px;height:44px;padding:0;border:0;background:none;display:grid;place-items:center}
+#pg button::before{content:'';width:8px;height:8px;border-radius:99px;background:#c4cad4}
+#pg button.on::before{width:24px;background:#5b86cc}
+.pl{font-size:14px;color:#6b7280;margin-top:-6px}
+#fb,#fb:hover{background:#1f2430;color:#fff;border-color:#1f2430;width:100%;min-height:48px;margin-bottom:6px}
+@media(max-width:900px){
+header{padding:calc(14px + env(safe-area-inset-top)) 12px 6px 20px}
+.tx{flex:1;margin:0}
+#mb{display:grid}
+#ctl{display:none;width:100%;flex-wrap:wrap;gap:8px;padding:2px 8px 6px 0}
+#ctl.open{display:flex}
+#q{width:100%}
+#ctl select,#ctl button{flex:1;min-height:44px}
+.gap{display:none}
+#main{--w:min(310px,82vw);display:flex;gap:12px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;padding:6px calc((100vw - var(--w))/2) 4px;scrollbar-width:none;overscroll-behavior-x:contain}
+#main::-webkit-scrollbar{display:none}
+#main.dragging{scroll-snap-type:none}
+.stack{display:contents}
+.col,.stack .col{flex:0 0 var(--w);scroll-snap-align:center;scroll-snap-stop:always}
+.acts button{min-height:44px}
+#pg{display:flex}
+}
+</style></head><body>
+<div id="lock"><form id="lf"><h1 style="font-size:24px">My Kanban</h1>
+<p id="lt" style="color:#6b7280;margin:4px 0 10px"></p>
+<button type="button" id="fb" hidden>Unlock with Face ID</button>
+<input id="pw" type="password" placeholder="Password" autocomplete="current-password">
+<input id="pw2" type="password" placeholder="Repeat password" hidden autocomplete="new-password">
+<div id="lm"></div><button style="width:100%">Unlock</button></form></div>
+<header>
+<div class="tx"><h1>My Kanban</h1><span id="save"></span></div>
+<button id="mb" aria-label="Menu" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+<div id="ctl">
+<input id="q" placeholder="Search…" aria-label="Search tasks">
+<select id="ft" aria-label="Filter by tag"></select>
+<select id="fe" aria-label="Filter by effort"><option value="">Any effort</option><option>Short</option><option>Half day</option><option>Full day</option></select>
+<label class="ck"><input type="checkbox" id="ar"> Show archive</label>
+<span class="gap"></span>
+<button id="bd">Data file</button><button id="bt">Tags</button><button id="bx">Export</button><button id="bi">Import</button>
+</div>
+<input type="file" id="fi" hidden accept=".json">
+</header>
+<div id="main"></div>
+<nav id="pg" aria-label="Bins"></nav><div id="hint" role="status"></div>
+
+<dialog id="ed"><form method="dialog" id="ef">
+<label>Title</label><input id="e_t" required>
+<label>Note</label><textarea id="e_note" rows="2"></textarea>
+<label>Column</label><select id="e_col"></select>
+<div id="e_wr"><label>Who owes it</label><input id="e_who"></div>
+<label id="e_dl">Due</label><input id="e_date" type="date">
+<label>Effort</label><select id="e_eff"><option value="">–</option><option>Short</option><option>Half day</option><option>Full day</option></select>
+<label>Tags</label><div class="tags" id="e_tags"></div>
+<div class="btns"><button type="button" id="e_del">Delete</button><button type="button" id="e_x">Cancel</button><button>Save</button></div>
+</form></dialog>
+
+<dialog id="tg"><b>Tags</b><div id="tg_list"></div>
+<div class="btns"><button id="tg_add">+ New tag</button><button id="tg_ok">Done</button></div></dialog>
+
+<dialog id="dd"><b>Data file</b>
+<p style="color:#6b7280;margin:6px 0">Your data is encrypted in this browser and saved as <code>kanban-data.enc.json</code>. To sync it to your GitHub repo, add a fine-grained token with Contents read/write on that repo only. The token stays in this browser, encrypted with your password.</p>
+<label>Repository (owner/repo)</label><input id="c_repo" placeholder="me/my-kanban">
+<div class="row"><div><label>Branch</label><input id="c_br" value="main"></div><div><label>File path</label><input id="c_path" value="kanban-data.enc.json"></div></div>
+<label>Token</label><input id="c_tok" type="password" autocomplete="off">
+<div class="btns" style="margin-top:10px"><button id="c_off">Remove sync</button><button id="c_ok">Save and sync</button></div>
+<div id="fid_wrap"><label style="margin-top:18px">Face ID</label>
+<p class="mu" style="margin:0 0 8px">Unlock on this device with Face ID. Needs iOS 18 or newer; your password still works.</p>
+<button type="button" id="fid" style="width:100%"></button></div>
+<label style="margin-top:18px">Current password</label>
+<div class="row"><input id="cp" type="password" readonly autocomplete="off" aria-label="Current password" placeholder="Hidden"><button type="button" id="cps">Show</button></div>
+<label style="margin-top:18px">Change password</label>
+<div class="row"><input id="np" type="password" placeholder="New password (8+ characters)" autocomplete="new-password"><button id="pwc">Change</button></div>
+<div class="btns"><button id="dd_x">Close</button></div></dialog>
+
+<script>
+const FILE='kanban-data.enc.json',LS='kb_env',LC='kb_cfg';
+const C=[['mine','Waiting for my input',"I'm the blocker"],['others','Waiting on others','Someone owes me something'],['back','Backlog','Not started, not blocked'],['done','Done',''],['liq','Liquified','Given up on or irrelevant']];
+const CN=['Blue','Gray','Pink','Cyan','Yellow','Green','Orange','Peach','Teal','Dark green'];
+const PAL=[['#7aa2e3','#5b86cc'],['#d9d5ce','#a29d93'],['#fbd5dc','#e49aa8'],['#d3f1f6','#7cc8d6'],['#f6d860','#d9b93a'],['#cfe8c4','#8fbf7c'],['#e8a64a','#c9852a'],['#fbe3c8','#e3b27e'],['#8fd0d3','#5aaeb2'],['#6aa86a','#4a874a']];
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9);
+const today=()=>{const d=new Date();return new Date(d.getFullYear(),d.getMonth(),d.getDate())};
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const dd=s=>Math.round((new Date(s+'T00:00')-today())/864e5);
+const rel=n=>n<0?`${-n} day${n<-1?'s':''} overdue`:n==0?'today':`in ${n} day${n>1?'s':''}`;
+const tt=()=>new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+const status=(m,e)=>{$('#save').textContent=m;$('#save').className=e?'err':''};
+let S,KEY,SALT,CFG,ENV,base=0,tm,edit,D=null,lastDrag=0;
+
+/* ---- crypto: PBKDF2 -> AES-256-GCM, all in the browser ---- */
+const b64=u=>{let s='';u.forEach(c=>s+=String.fromCharCode(c));return btoa(s)};
+const ub=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function derive(pw,salt){const k=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+ return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:600000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])}
+async function enc(o){const iv=crypto.getRandomValues(new Uint8Array(12));
+ return{iv:b64(iv),ct:b64(new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},KEY,new TextEncoder().encode(JSON.stringify(o)))))}}
+async function dec(e,k=KEY){return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:ub(e.iv)},k,ub(e.ct))))}
+const seal=async()=>({v:1,ts:S.ts,salt:b64(SALT),...await enc(S)});
+
+/* ---- unlock ---- */
+async function boot(){
+ try{ENV=JSON.parse(localStorage[LS])}catch{}
+ try{const r=await fetch(FILE+'?t='+Date.now(),{cache:'no-store'});if(r.ok){const e=await r.json();if(!ENV||e.ts>ENV.ts)ENV=e}}catch{}
+ $('#lt').textContent=ENV?'Enter your password to unlock.':'First run: choose a password. It encrypts everything and cannot be recovered.';
+ $('#pw2').hidden=!!ENV;$('#fb').hidden=!(ENV&&localStorage.kb_face&&window.PublicKeyCredential);if($('#fb').hidden)$('#pw').focus();
+}
+const lm=m=>$('#lm').textContent=m;
+let PW='';
+$('#lf').onsubmit=e=>{e.preventDefault();openWith($('#pw').value)};
+async function openWith(pw){
+ try{
+  if(!ENV){if(pw.length<8||pw!==$('#pw2').value)return lm('Use 8+ characters and repeat it exactly.');
+   SALT=crypto.getRandomValues(new Uint8Array(16));KEY=await derive(pw,SALT);
+   S={ts:0,tasks:[],tags:[{id:uid(),n:'Work',c:0},{id:uid(),n:'Lab',c:5},{id:uid(),n:'Supplier',c:6},{id:uid(),n:'Urgent',c:2}]}}
+  else{SALT=ub(ENV.salt);KEY=await derive(pw,SALT);S=await dec(ENV);base=ENV.ts}
+ }catch{return lm('Wrong password.')}PW=pw;
+ try{CFG=await dec(JSON.parse(localStorage[LC]))}catch{CFG=null}
+ $('#lock').hidden=true;$('#pw').value=$('#pw2').value='';render();
+ if(CFG)await sync(false);else if(ENV)status('Unlocked '+tt());if(!ENV)save();
+}
+
+/* ---- save + GitHub sync ---- */
+function save(){status('Saving…');clearTimeout(tm);tm=setTimeout(async()=>{
+ S.tasks=S.tasks.filter(t=>!t.del||Date.now()-t.u<2592e6);
+ S.ts=Date.now();localStorage[LS]=JSON.stringify(await seal());status('Saved locally '+tt());if(CFG)sync(true)},600)}
+function merge(R){const m=new Map(S.tasks.map(t=>[t.id,t]));R.tasks.forEach(t=>{const o=m.get(t.id);if(!o||t.u>o.u)m.set(t.id,t)});
+ if(R.ts>S.ts)S.tags=R.tags;S.tasks=[...m.values()];S.ts=Math.max(S.ts,R.ts)}
+async function sync(write){
+ const u=`https://api.github.com/repos/${CFG.repo}/contents/${CFG.path}`,h={Authorization:'Bearer '+CFG.token,Accept:'application/vnd.github+json'};
+ try{
+  let sha,g=await fetch(`${u}?ref=${CFG.branch}&t=${Date.now()}`,{headers:h});
+  if(g.ok){const j=await g.json();sha=j.sha;const re=JSON.parse(atob(j.content.replace(/\s/g,'')));
+   if(re.ts!==base&&re.salt==b64(SALT)){merge(await dec(re));base=re.ts;render()}}
+  else if(g.status!=404)throw Error('GitHub error '+g.status+' (check repo and token)');
+  if(!write&&sha){localStorage[LS]=JSON.stringify(await seal());return status('Synced with GitHub '+tt())}
+  S.ts=Date.now();const env=await seal();localStorage[LS]=JSON.stringify(env);
+  const p=await fetch(u,{method:'PUT',headers:h,body:JSON.stringify({message:'kanban update',content:btoa(JSON.stringify(env)),branch:CFG.branch,sha})});
+  if(!p.ok)throw Error(p.status==409?'Conflict, change something to retry':'GitHub error '+p.status);
+  base=env.ts;status('Saved to GitHub '+tt());
+ }catch(e){status(e.message+' · kept locally',1)}
+}
+
+/* ---- render ---- */
+function card(t){
+ const tags=t.tags.map(i=>S.tags.find(x=>x.id==i)).filter(Boolean),c=tags[0]?PAL[tags[0].c][1]:'';
+ let h=`<div class="card${t.col=='done'?' dn':''}" data-id="${t.id}"${c?` style="--c:${c}"`:''}><div class="ti">${esc(t.t)}</div>`;
+ if(t.col=='others'&&t.who)h+=`<div class="mu">${esc(t.who)}</div>`;
+ if(t.note)h+=`<div class="mu">${esc(t.note)}</div>`;
+ if(t.col=='done')h+=`<div class="mu">Done ${t.done}</div>`;
+ else if(t.date){const n=dd(t.date);h+=`<div class="${n<=1?'due'+(n<0?' late':''):'mu'}">${t.col=='others'?'Expected':'Due'} ${t.date}${n<=1?' · '+rel(n):''}</div>`}
+ if(t.col=='others')h+=`<div class="mu">${t.nud.length?'Nudged '+t.nud[t.nud.length-1]+(t.nud.length>1?` (${t.nud.length}×)`:''):'Not nudged yet'}</div>`;
+ if(tags.length||t.eff)h+=`<div class="tags">${tags.map(x=>`<span class="pill" style="background:${PAL[x.c][0]};border-color:${PAL[x.c][1]}">${esc(x.n)}</span>`).join('')}${t.eff?`<span class="pill eff">${t.eff}</span>`:''}</div>`;
+ if(t.col!='done'&&t.col!='liq')h+=`<div class="acts">${t.col=='others'?'<button data-a="nudge">Nudge</button><button data-a="got">Got it</button>':''}<button data-a="done">Done</button></div>`;
+ return h+'</div>'}
+function render(){
+ const q=$('#q').value.toLowerCase(),ft=$('#ft').value,fe=$('#fe').value,arch=$('#ar').checked,lim=iso(new Date(today()-7*864e5));
+ $('#ft').innerHTML='<option value="">All tags</option>'+S.tags.map(t=>`<option value="${t.id}">${esc(t.n)}</option>`).join('');$('#ft').value=ft;
+ const sx=M.scrollLeft,sc={};$$('.col').forEach(c=>sc[c.dataset.col]=c.querySelector('.list').scrollTop);
+ const colH=([id,n,s])=>{
+  const L=S.tasks.filter(t=>!t.del&&t.col==id&&(!q||(t.t+t.note+t.who).toLowerCase().includes(q))&&(!ft||t.tags.includes(ft))&&(!fe||t.eff==fe)&&(id!='done'||arch||t.done>=lim))
+   .sort((a,b)=>id=='done'?b.done.localeCompare(a.done):(a.date||'9').localeCompare(b.date||'9'));
+  return`<section class="col" data-col="${id}"><div class="ch"><b>${n}</b><span>${L.length}</span></div>${s?`<div class="sub">${s}</div>`:''}<div class="list">${L.map(card).join('')}</div>${id=='done'||id=='liq'?'':'<button class="add" data-a="add">+ Add task</button>'}</section>`};
+ $('#main').innerHTML=colH(C[0])+colH(C[1])+colH(C[2])+`<div class="stack">${colH(C[3])+colH(C[4])}</div>`;
+ $$('.col').forEach(c=>c.querySelector('.list').scrollTop=sc[c.dataset.col]||0);M.scrollLeft=sx;updPg()}
+const touch=t=>{t.u=Date.now();save();render()};
+const mv=(t,c)=>{t.col=c;t.done=c=='done'?iso(today()):''};
+['#q','#ft','#fe','#ar'].forEach(s=>$(s).oninput=render);
+
+/* ---- board interactions ---- */
+const M=$('#main');
+M.onclick=e=>{if(Date.now()-lastDrag<400)return;const b=e.target.closest('button'),c=e.target.closest('.card'),col=e.target.closest('.col');
+ if(b&&b.dataset.a=='add')return openEd({col:col.dataset.col});
+ if(!c)return;const t=S.tasks.find(x=>x.id==c.dataset.id);
+ if(b){const a=b.dataset.a;if(a=='nudge')t.nud.push(iso(today()));if(a=='got')t.col='mine';if(a=='done')mv(t,'done');return touch(t)}
+ openEd(t)};
+/* pointer drag: mouse drags at once, touch needs a short press so scrolling still works */
+const car=()=>matchMedia('(max-width:900px)').matches;
+M.onpointerdown=e=>{if(e.button>0||e.target.closest('button'))return;const c=e.target.closest('.card');if(!c)return;
+ D={id:c.dataset.id,c,x:e.clientX,y:e.clientY,sx:e.clientX,sy:e.clientY,on:0,touch:e.pointerType!='mouse'};
+ if(D.touch)D.tm=setTimeout(dragStart,320)};
+addEventListener('pointermove',e=>{if(!D)return;D.x=e.clientX;D.y=e.clientY;
+ if(!D.on){if(Math.hypot(D.x-D.sx,D.y-D.sy)>(D.touch?10:6)){if(D.touch){clearTimeout(D.tm);D=null}else dragStart()}return}
+ place()});
+document.addEventListener('touchmove',e=>{if(D&&D.on)e.preventDefault()},{passive:false});
+M.addEventListener('contextmenu',e=>{if(e.target.closest('.card'))e.preventDefault()});
+const place=()=>{D.g.style.left=D.x-D.ox+'px';D.g.style.top=D.y-D.oy+'px'};
+function dragStart(){if(!D)return;clearTimeout(D.tm);const r=D.c.getBoundingClientRect(),g=D.c.cloneNode(true);
+ D.on=1;D.ox=D.x-r.left;D.oy=D.y-r.top;g.classList.add('ghost');g.style.width=r.width+'px';document.body.appendChild(g);D.g=g;
+ D.c.classList.add('ph');M.classList.add('dragging');document.body.classList.add('dragging');
+ navigator.vibrate&&navigator.vibrate(12);place();requestAnimationFrame(tick)}
+function tick(){if(!D||!D.on)return;
+ if(car()){const v=D.x>innerWidth-50?12:D.x<50?-12:0;if(v)M.scrollLeft+=v}
+ const c=document.elementFromPoint(D.x,D.y)?.closest('.col');
+ if(c!==D.tc){$$('.over').forEach(x=>x.classList.remove('over'));D.tc=c;c&&c.classList.add('over');
+  const t=S.tasks.find(x=>x.id==D.id),h=$('#hint');
+  if(c&&t&&c.dataset.col!=t.col){h.textContent='Move to '+c.querySelector('b').textContent;h.classList.add('show')}else h.classList.remove('show')}
+ requestAnimationFrame(tick)}
+function dragEnd(drop){if(!D)return;clearTimeout(D.tm);const d=D;D=null;if(!d.on)return;
+ d.g.remove();$$('.over').forEach(x=>x.classList.remove('over'));$('#hint').classList.remove('show');
+ M.classList.remove('dragging');document.body.classList.remove('dragging');lastDrag=Date.now();
+ const t=S.tasks.find(x=>x.id==d.id),c=d.tc;
+ if(drop&&t&&c&&c.dataset.col!=t.col){mv(t,c.dataset.col);touch(t)}else render()}
+addEventListener('pointerup',()=>dragEnd(1));addEventListener('pointercancel',()=>dragEnd(0));
+
+/* ---- phone: menu + bin pager ---- */
+$('#mb').onclick=()=>{const o=$('#ctl').classList.toggle('open');$('#mb').setAttribute('aria-expanded',o)};
+$('#pg').innerHTML='<div class="dots">'+C.map((c,i)=>`<button data-i="${i}" aria-label="${c[1]}"></button>`).join('')+'</div><div class="pl"></div>';
+function updPg(){const cols=$$('.col');if(!cols.length)return;const mid=M.scrollLeft+M.clientWidth/2;let k=0,b=1e9;
+ cols.forEach((c,i)=>{const d=Math.abs(c.offsetLeft+c.offsetWidth/2-mid);if(d<b){b=d;k=i}});
+ $$('#pg button').forEach((x,i)=>x.classList.toggle('on',i==k));$('#pg .pl').textContent=`${C[k][1]} · ${k+1} of ${C.length}`}
+M.onscroll=()=>requestAnimationFrame(updPg);
+$('#pg').onclick=e=>{const b=e.target.closest('button');if(b)$$('.col')[b.dataset.i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})};
+
+/* ---- edit dialog ---- */
+function openEd(t){
+ edit=t.id?t:{id:uid(),t:'',note:'',col:t.col,who:'',date:'',eff:'',tags:[],nud:[],done:'',u:0};
+ $('#e_t').value=edit.t;$('#e_note').value=edit.note;$('#e_who').value=edit.who;$('#e_date').value=edit.date;$('#e_eff').value=edit.eff;
+ $('#e_col').innerHTML=C.map(c=>`<option value="${c[0]}">${c[1]}</option>`).join('');$('#e_col').value=edit.col;
+ $('#e_tags').innerHTML=S.tags.map(x=>`<span class="pill tgl${edit.tags.includes(x.id)?' on':''}" data-id="${x.id}" style="background:${PAL[x.c][0]};border-color:${PAL[x.c][1]}">${esc(x.n)}</span>`).join('');
+ $('#e_del').hidden=!t.id;colUi();$('#ed').showModal()}
+function colUi(){const o=$('#e_col').value=='others';$('#e_wr').hidden=!o;$('#e_dl').textContent=o?'Expected':'Due'}
+$('#e_col').onchange=colUi;
+$('#e_tags').onclick=e=>{const p=e.target.closest('.tgl');if(p)p.classList.toggle('on')};
+$('#e_x').onclick=()=>$('#ed').close();
+$('#e_del').onclick=()=>{if(confirm('Delete this task?')){edit.del=1;touch(edit);$('#ed').close()}};
+$('#ef').onsubmit=()=>{const c=$('#e_col').value;
+ Object.assign(edit,{t:$('#e_t').value.trim(),note:$('#e_note').value,who:$('#e_who').value,date:$('#e_date').value,eff:$('#e_eff').value,tags:$$('#e_tags .on').map(x=>x.dataset.id)});
+ if(c!=edit.col)mv(edit,c);if(!S.tasks.includes(edit))S.tasks.push(edit);touch(edit)};
+
+/* ---- tags dialog ---- */
+function tagsUi(){$('#tg_list').innerHTML=S.tags.map((t,i)=>`<div class="row"><input value="${esc(t.n)}" data-i="${i}" data-k="n"><select data-i="${i}" data-k="c">${CN.map((n,j)=>`<option value="${j}"${j==t.c?' selected':''}>${n}</option>`).join('')}</select><button data-i="${i}" data-k="x">✕</button></div>`).join('')}
+$('#bt').onclick=()=>{tagsUi();$('#tg').showModal()};
+$('#tg_list').onchange=e=>{const{i,k}=e.target.dataset;S.tags[i][k]=k=='c'?+e.target.value:e.target.value;S.ts=Date.now();save();render()};
+$('#tg_list').onclick=e=>{const b=e.target.closest('button');if(!b)return;const t=S.tags[b.dataset.i];
+ if(confirm('Remove tag "'+t.n+'"?')){S.tags.splice(b.dataset.i,1);S.tasks.forEach(x=>{if(x.tags.includes(t.id)){x.tags=x.tags.filter(i=>i!=t.id);x.u=Date.now()}});tagsUi();save();render()}};
+$('#tg_add').onclick=()=>{S.tags.push({id:uid(),n:'New tag',c:S.tags.length%10});tagsUi();save();render()};
+$('#tg_ok').onclick=()=>$('#tg').close();
+
+/* ---- data file / sync / password ---- */
+$('#bd').onclick=()=>{faceUi();if(CFG){$('#c_repo').value=CFG.repo;$('#c_br').value=CFG.branch;$('#c_path').value=CFG.path;$('#c_tok').value=CFG.token}$('#dd').showModal()};
+$('#dd_x').onclick=()=>$('#dd').close();
+$('#c_ok').onclick=async()=>{const repo=$('#c_repo').value.trim().replace(/^https?:\/\/github\.com\//,'').replace(/\.git$|\/$/g,''),tok=$('#c_tok').value.trim();
+ if(!/^[\w.-]+\/[\w.-]+$/.test(repo)||!tok)return alert('Enter owner/repo and a token.');
+ CFG={repo,branch:$('#c_br').value.trim()||'main',path:$('#c_path').value.trim()||FILE,token:tok};
+ localStorage[LC]=JSON.stringify(await enc(CFG));$('#dd').close();status('Syncing…');await sync(true)};
+$('#c_off').onclick=()=>{CFG=null;delete localStorage[LC];$('#dd').close();status('GitHub sync removed')};
+$('#pwc').onclick=async()=>{const p=$('#np').value;if(p.length<8)return alert('Use 8+ characters.');
+ SALT=crypto.getRandomValues(new Uint8Array(16));KEY=await derive(p,SALT);if(CFG)localStorage[LC]=JSON.stringify(await enc(CFG));
+ $('#np').value='';save();PW=p;delete localStorage.kb_face;faceUi();alert('Password changed. Face ID was turned off on this device; turn it on again. Other devices need the new password.')};
+$('#bx').onclick=async()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(await seal())],{type:'application/json'}));a.download=FILE;a.click()};
+$('#bi').onclick=()=>$('#fi').click();
+$('#fi').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
+ try{const env=JSON.parse(await f.text()),p=prompt('Password of this file:');
+  const d=await dec(env,await derive(p||'',ub(env.salt)));
+  if(confirm('Replace the current board with the imported one?')){S=d;S.tasks.forEach(t=>t.u=Date.now());S.ts=Date.now();save();render()}
+ }catch{alert('Could not import: wrong password or not an encrypted Kanban file.')}};
+/* ---- Face ID: a passkey with the PRF extension wraps the password on this device ---- */
+const prfGet=async(id,salt)=>{const a=await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:'public-key',id}],userVerification:'required',extensions:{prf:{eval:{first:salt}}}}});
+ const r=a.getClientExtensionResults().prf?.results?.first;if(!r)throw Error('Face ID did not return a key.');return r};
+const faceUi=()=>{$('#fid_wrap').hidden=!window.PublicKeyCredential;$('#fid').textContent=localStorage.kb_face?'Turn off Face ID':'Turn on Face ID'};
+async function faceOn(){
+ const salt=crypto.getRandomValues(new Uint8Array(32)),cred=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:'My Kanban'},user:{id:crypto.getRandomValues(new Uint8Array(16)),name:'kanban',displayName:'My Kanban'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required',residentKey:'preferred'},extensions:{prf:{}}}});
+ if(!cred.getClientExtensionResults().prf?.enabled)throw Error('This browser cannot unlock with Face ID (needs iOS 18 or newer).');
+ const k=await crypto.subtle.importKey('raw',await prfGet(cred.rawId,salt),'AES-GCM',false,['encrypt']),iv=crypto.getRandomValues(new Uint8Array(12));
+ const ct=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},k,new TextEncoder().encode(PW)));
+ localStorage.kb_face=JSON.stringify({id:b64(new Uint8Array(cred.rawId)),salt:b64(salt),iv:b64(iv),ct:b64(ct)})}
+$('#fid').onclick=async()=>{if(localStorage.kb_face){delete localStorage.kb_face;return faceUi()}
+ try{await faceOn();faceUi();alert('Face ID is on for this device. Your password still works.')}catch(e){alert(e.name=='NotAllowedError'?'Face ID was cancelled.':e.message)}};
+$('#fb').onclick=async()=>{
+ try{const f=JSON.parse(localStorage.kb_face),k=await crypto.subtle.importKey('raw',await prfGet(ub(f.id),ub(f.salt)),'AES-GCM',false,['decrypt']);
+  await openWith(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:ub(f.iv)},k,ub(f.ct))))}
+ catch(e){return lm(e.name=='NotAllowedError'?'Face ID was cancelled.':'Face ID failed. Use your password.')}
+ if(!$('#lock').hidden){delete localStorage.kb_face;$('#fb').hidden=true;lm('Face ID is out of date. Use your password, then turn Face ID on again.')}};
+/* ---- show the current password (hides itself after 15 s or when the dialog closes) ---- */
+let pwT;const hidePw=()=>{clearTimeout(pwT);$('#cp').value='';$('#cp').type='password';$('#cps').textContent='Show'};
+$('#cps').onclick=()=>{if($('#cp').type=='text')return hidePw();$('#cp').value=PW;$('#cp').type='text';$('#cps').textContent='Hide';pwT=setTimeout(hidePw,15000)};
+$('#dd').addEventListener('close',hidePw);
+boot();
+</script></body></html>

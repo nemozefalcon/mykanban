@@ -31,6 +31,7 @@ input[type=checkbox]{width:18px;height:18px;padding:0}
 .mu{color:#6b7280;margin:3px 0}
 .due{color:#b45309;font-weight:700;margin:3px 0}.due.late{color:#b42318}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+.tags .tg{margin:0}
 .pill{padding:1px 12px;border-radius:999px;font-size:15px;border:1px solid #ccc;line-height:1.5}
 .eff{background:none;border:1px dashed #666;color:#444}
 .acts{display:flex;gap:8px;margin-top:8px}.acts button{padding:3px 12px;font-size:15px;border-radius:6px}
@@ -42,7 +43,32 @@ dialog input,dialog select,dialog textarea{width:100%}
 label{display:block;margin:10px 0 4px;color:#555;font-size:14px}
 .row{display:flex;gap:8px;margin:6px 0}.row>*{flex:1}.row button{flex:0}
 .btns{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
-.tgl{cursor:pointer;opacity:.4}.tgl.on{opacity:1}
+.tgb,.tgb:hover{min-height:44px;padding:0 4px;border:0;background:none;opacity:.4}.tgb.on{opacity:1}
+.tg{position:relative;display:inline-flex;align-items:center;gap:4px;overflow:hidden;height:22px;padding:0 8px 0 4px;margin:0;border:1px solid var(--cc);border-radius:8px;background:var(--cc);color:var(--tx,#fff);font-size:11.5px;line-height:20px;font-weight:600;white-space:nowrap}
+.tg::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.24),rgba(255,255,255,0));pointer-events:none}
+.tg>*{position:relative}.tg .ic{width:12px;height:12px;flex:none}
+.tg.alpha{background:color-mix(in srgb,var(--cc) 26%,transparent);color:#1f2937}
+.tg.nofill{background:transparent;color:#1f2937;border-width:1.5px}
+.tg.alphadash{background:color-mix(in srgb,var(--cc) 26%,transparent);color:#1f2937;border:1.5px dashed var(--cc)}
+.tg.nofilldash{background:transparent;color:#1f2937;border:1.5px dashed var(--cc)}
+.tg.alpha::before,.tg.nofill::before,.tg.alphadash::before,.tg.nofilldash::before{display:none}
+#tg{width:min(540px,94vw);max-height:92dvh}
+.tl{display:flex;flex-wrap:wrap;gap:2px 6px;align-items:center}
+.tb{display:inline-flex;align-items:center;min-height:44px;padding:0 8px;border:0;border-radius:10px;background:none}
+.tb.on,.tb.on:hover{background:#eef1f6;outline:2px solid #1a1a1a;outline-offset:-2px}
+.lab{display:flex;align-items:center;gap:8px;margin:18px 0 8px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5c5c5c}
+.lab .n{width:20px;height:20px;border-radius:50%;background:#1a1a1a;color:#fff;display:grid;place-items:center;font-size:12px;letter-spacing:0}
+.sws{display:grid;grid-template-columns:repeat(auto-fill,minmax(44px,1fr));gap:8px;padding:3px}
+.sw{height:44px;border-radius:10px;border:1px solid #0000001f;padding:0;display:grid;place-items:center}
+.sw.on{outline:3px solid #1a1a1a;outline-offset:2px}
+.sts{display:grid;grid-template-columns:repeat(auto-fit,minmax(86px,1fr));gap:6px}
+.st{display:flex;flex-direction:column;align-items:center;gap:8px;min-height:44px;padding:14px 4px 10px;border-radius:10px}
+.st.on,.st.on:hover{border:2px solid #1a1a1a;background:#f6f8fb;padding:13px 3px 9px}
+.cap{font-size:12px;color:#5c5c5c;text-align:center;line-height:1.2}
+.pvc{border:1px solid #e1e5ec;border-left:5px solid #cfd4dc;border-radius:10px;padding:10px 16px;background:#fff}
+.ft{display:flex;align-items:center;margin-top:20px}
+.del,.del:hover{min-height:44px;padding:0 6px;border:0;background:none;color:#b42318}
+.ok,.ok:hover{margin-left:auto;min-height:44px;padding:0 28px;border:0;background:#1a1a1a;color:#fff;font-weight:600}
 #lock{position:fixed;inset:0;background:#eef1f6;display:flex;align-items:center;justify-content:center;z-index:9}
 #lock form{background:#fff;border:1px solid #dde2ea;border-radius:14px;padding:24px;width:min(360px,92vw)}
 #lock input{width:100%;margin:6px 0}#lm{color:#b42318;min-height:1.3em;font-size:15px}
@@ -57,6 +83,46 @@ body.dragging{user-select:none;-webkit-user-select:none}
 #pg button.on::before{width:24px;background:#5b86cc}
 .pl{font-size:14px;color:#6b7280;margin-top:-6px}
 #fb,#fb:hover{background:#1f2430;color:#fff;border-color:#1f2430;width:100%;min-height:48px;margin-bottom:6px}
+.th{display:block}
+.sm,.chev,.ib.ed,.ib.cx{display:none}
+.ib{width:44px;height:44px;padding:0;border:0;background:none;color:#6b7280;display:grid;place-items:center;border-radius:10px;flex:none}
+.ib:hover{background:#eef1f6}
+.sc{display:inline-flex;align-items:center;gap:3px;color:#5c5c5c;vertical-align:middle}
+.clp{display:flex;align-items:center;gap:8px;margin:6px 0 2px;font-size:13px;color:#5c5c5c}
+.bar2{flex:1;height:6px;border-radius:3px;background:#e1e5ec;overflow:hidden}.bar2 span{display:block;height:100%;background:#4e9d3e}
+.cr2{display:flex;align-items:center;min-height:32px}
+.cbw{display:grid;place-items:center;width:36px;height:32px;margin:0;flex:none}
+input.cb{appearance:none;-webkit-appearance:none;width:22px;height:22px;margin:0;padding:0;border:2px solid #6b7280;border-radius:6px;background:#fff;display:grid;place-items:center;cursor:pointer}
+input.cb:checked{background:#1a1a1a;border-color:#1a1a1a}
+input.cb:checked::after{content:'';width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.ct{flex:1;min-width:0;font-size:15px;overflow-wrap:anywhere}
+.ct.done,.cr input.it.done{color:#6b7280;text-decoration:line-through}
+.hb{position:relative;width:44px;height:44px;padding:0;display:grid;place-items:center}
+.hb.act,.hb.act:hover{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.bdg{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;border-radius:10px;background:#e0613e;color:#1a1a1a;font-size:12px;font-weight:700;display:grid;place-items:center;padding:0 5px}
+#ed{max-height:92dvh;overflow:auto}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.two input,.two select{min-width:0;height:44px}
+.nbox{border:1px solid #d5dae3;border-radius:8px;background:#fff;overflow:hidden}
+.nbox textarea{display:block;border:0;border-radius:0;resize:none}
+.cll{border-top:1px solid #e1e5ec;padding:2px 4px 2px 0}
+.cr{display:flex;align-items:center;min-height:44px}
+.cr.lift{background:#f3f5f9;box-shadow:0 4px 12px #1f243026;border-radius:8px}
+.cr .cbw{width:44px;height:44px}
+.cr input.it{flex:1;min-width:0;width:auto;min-height:44px;padding:0 4px;border:0;border-radius:0;background:none}
+.cr input.it::placeholder{color:#6b7280}
+.grip{width:30px;height:44px;display:grid;place-items:center;color:#6b7280;flex:none;touch-action:none;cursor:grab}
+.plus{width:44px;height:44px;margin-left:30px;display:grid;place-items:center;color:#6b7280;flex:none}
+.tool{display:flex;padding:0 6px 4px}
+.cib{width:44px;height:44px;padding:0;border:0;background:none;color:#6b7280;display:grid;place-items:center;border-radius:10px}
+.cib[aria-pressed="true"]{background:#eef1f6;color:#4b5563}
+#fs{width:min(420px,94vw);max-height:90dvh;overflow:auto}
+.fsh{display:flex;align-items:center;justify-content:space-between}
+.fsh h2{margin:0;font-size:20px}
+.lnk,.lnk:hover{min-height:44px;padding:0 4px;border:0;background:none;color:#1a1a1a;text-decoration:underline}
+.grab{display:none;width:40px;height:4px;border-radius:2px;background:#c4cad4;margin:0 auto 8px}
+.cta,.cta:hover{width:100%;min-height:48px;margin-top:16px;border:0;border-radius:10px;background:#1a1a1a;color:#fff;font-weight:600}
+#lock .ck input{width:18px;margin:0}
 @media(max-width:900px){
 header{padding:calc(14px + env(safe-area-inset-top)) 12px 6px 20px}
 .tx{flex:1;margin:0}
@@ -73,24 +139,49 @@ header{padding:calc(14px + env(safe-area-inset-top)) 12px 6px 20px}
 .col,.stack .col{flex:0 0 var(--w);scroll-snap-align:center;scroll-snap-stop:always}
 .acts button{min-height:44px}
 #pg{display:flex}
+.col{padding:14px 10px 10px}
+.ch b{font-size:18px}.ch span{font-size:15px}
+.sub{font-size:13px}
+.list{gap:8px;padding:2px}
+.card{padding:9px 10px 9px 12px}
+.th{display:flex;align-items:center;gap:4px}
+.tw{flex:1;min-width:0}
+.ti{font-size:16px;line-height:1.25;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sm{display:block;font-size:13px;color:#6b7280;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sm:empty{display:none}
+.chev{display:block;flex:none;color:#6b7280}
+.cd{display:none}
+.card.open{box-shadow:0 4px 14px #1f243022;padding-bottom:12px}
+.card.open .cd{display:block}
+.card.open .th{align-items:flex-start}
+.card.open .ti{white-space:normal;padding-top:6px}
+.card.open .sm,.card.open .chev{display:none}
+.card.open .ib.ed,.card.open .ib.cx{display:grid;width:40px}
+.cd .mu,.cd .due{margin:2px 0}
+.acts button{flex:1}
+.cbw{width:44px;height:44px}.cr2{min-height:44px}
+#fs{position:fixed;inset:auto 0 0 0;margin:0;width:100%;max-width:none;border:0;border-radius:18px 18px 0 0;padding:10px 20px calc(24px + env(safe-area-inset-bottom))}
+.grab{display:block}
 }
 </style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ti" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol></svg>
 <div id="lock"><form id="lf"><h1 style="font-size:24px">My Kanban</h1>
 <p id="lt" style="color:#6b7280;margin:4px 0 10px"></p>
 <button type="button" id="fb" hidden>Unlock with Face ID</button>
 <input id="pw" type="password" placeholder="Password" autocomplete="current-password">
 <input id="pw2" type="password" placeholder="Repeat password" hidden autocomplete="new-password">
+<label class="ck" style="margin:8px 0"><input type="checkbox" id="rem" checked> Remember this device</label>
 <div id="lm"></div><button style="width:100%">Unlock</button></form></div>
 <header>
 <div class="tx"><h1>My Kanban</h1><span id="save"></span></div>
+<button id="fbtn" class="hb" aria-label="Filter by tags" title="Filter by tags"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4-2v-4L3 5z"/></svg><span class="bdg" id="fbdg" hidden></span></button>
 <button id="mb" aria-label="Menu" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
 <div id="ctl">
 <input id="q" placeholder="Search…" aria-label="Search tasks">
-<select id="ft" aria-label="Filter by tag"></select>
 <select id="fe" aria-label="Filter by effort"><option value="">Any effort</option><option>Short</option><option>Half day</option><option>Full day</option></select>
 <label class="ck"><input type="checkbox" id="ar"> Show archive</label>
 <span class="gap"></span>
-<button id="bd">Data file</button><button id="bt">Tags</button><button id="bx">Export</button><button id="bi">Import</button>
+<button id="bd">Data file</button><button id="bt">Tags</button><button id="bx">Export</button><button id="bi">Import</button><button id="blk">Lock</button>
 </div>
 <input type="file" id="fi" hidden accept=".json">
 </header>
@@ -99,17 +190,34 @@ header{padding:calc(14px + env(safe-area-inset-top)) 12px 6px 20px}
 
 <dialog id="ed"><form method="dialog" id="ef">
 <label>Title</label><input id="e_t" required>
-<label>Note</label><textarea id="e_note" rows="2"></textarea>
+<label>Note</label>
+<div class="nbox"><textarea id="e_note" rows="3"></textarea>
+<div id="e_cll" class="cll" hidden></div>
+<div class="tool"><button type="button" class="cib" id="e_cl" aria-label="Add checklist" aria-pressed="false" title="Checklist"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6.5l1.8 1.8L8.5 5M3.5 12.5l1.8 1.8 3.2-3.3M3.5 18.5l1.8 1.8 3.2-3.3M12 7h9M12 13h9M12 19h9"/></svg></button></div></div>
 <label>Column</label><select id="e_col"></select>
 <div id="e_wr"><label>Who owes it</label><input id="e_who"></div>
-<label id="e_dl">Due</label><input id="e_date" type="date">
-<label>Effort</label><select id="e_eff"><option value="">–</option><option>Short</option><option>Half day</option><option>Full day</option></select>
+<div class="two"><div><label id="e_dl">Due</label><input id="e_date" type="date"></div>
+<div><label>Effort</label><select id="e_eff"><option value="">–</option><option>Short</option><option>Half day</option><option>Full day</option></select></div></div>
 <label>Tags</label><div class="tags" id="e_tags"></div>
 <div class="btns"><button type="button" id="e_del">Delete</button><button type="button" id="e_x">Cancel</button><button>Save</button></div>
 </form></dialog>
 
-<dialog id="tg"><b>Tags</b><div id="tg_list"></div>
-<div class="btns"><button id="tg_add">+ New tag</button><button id="tg_ok">Done</button></div></dialog>
+<dialog id="fs" aria-label="Filter by tags"><div class="grab"></div>
+<div class="fsh"><h2>Filter by tags</h2><button type="button" class="lnk" id="fs_clr">Clear</button></div>
+<p class="mu" style="margin:0 0 8px">Shows tasks that have any of the selected tags.</p>
+<div class="tl" id="fs_list"></div>
+<button type="button" class="cta" id="fs_go"></button></dialog>
+
+<dialog id="tg"><h2 style="margin:0 0 6px;font-size:22px">Tags</h2>
+<p class="mu" id="tg_hint" style="margin:0 0 10px">Select a tag to edit it, or add a new one.</p>
+<div class="tl" id="tg_list"></div>
+<div id="tg_ed" hidden>
+<label>Name</label><input id="tg_n" aria-label="Tag name" autocomplete="off">
+<div class="lab"><span class="n">1</span>Color</div><div class="sws" id="tg_sw"></div>
+<div class="lab"><span class="n">2</span>Style</div><div class="sts" id="tg_st"></div>
+<div class="lab">On a card</div><div class="pvc" id="tg_pv"></div>
+</div>
+<div class="ft"><button type="button" class="del" id="tg_del" hidden>Delete tag</button><button type="button" class="ok" id="tg_ok">Done</button></div></dialog>
 
 <dialog id="dd"><b>Data file</b>
 <p style="color:#6b7280;margin:6px 0">Your data is encrypted in this browser and saved as <code>kanban-data.enc.json</code>. To sync it to your GitHub repo, add a fine-grained token with Contents read/write on that repo only. The token stays in this browser, encrypted with your password.</p>
@@ -129,8 +237,16 @@ header{padding:calc(14px + env(safe-area-inset-top)) 12px 6px 20px}
 <script>
 const FILE='kanban-data.enc.json',LS='kb_env',LC='kb_cfg';
 const C=[['mine','Waiting for my input',"I'm the blocker"],['others','Waiting on others','Someone owes me something'],['back','Backlog','Not started, not blocked'],['done','Done',''],['liq','Liquified','Given up on or irrelevant']];
-const CN=['Blue','Gray','Pink','Cyan','Yellow','Green','Orange','Peach','Teal','Dark green'];
-const PAL=[['#7aa2e3','#5b86cc'],['#d9d5ce','#a29d93'],['#fbd5dc','#e49aa8'],['#d3f1f6','#7cc8d6'],['#f6d860','#d9b93a'],['#cfe8c4','#8fbf7c'],['#e8a64a','#c9852a'],['#fbe3c8','#e3b27e'],['#8fd0d3','#5aaeb2'],['#6aa86a','#4a874a']];
+const P=[['#8fb23a','#1a1a1a','Lime'],['#5b4f46','#ffffff','Espresso'],['#5568b8','#ffffff','Indigo'],['#f2c931','#1a1a1a','Yellow'],['#dc8fdc','#1a1a1a','Orchid'],['#e0922d','#1a1a1a','Orange'],['#e0613e','#1a1a1a','Red-orange'],['#8aa8d8','#1a1a1a','Periwinkle'],['#5f4a7a','#ffffff','Plum'],['#4e9d3e','#1a1a1a','Green'],['#a0723a','#ffffff','Brown'],['#6ec6cc','#1a1a1a','Aqua'],['#8a8a82','#1a1a1a','Gray'],['#9b59c9','#ffffff','Violet'],['#e8708f','#1a1a1a','Pink'],['#aba383','#1a1a1a','Khaki'],['#8aa8bc','#1a1a1a','Steel'],['#4a8fe0','#1a1a1a','Blue']];
+const STY=[['Color',''],['Alpha','alpha'],['Hollow','nofill'],['Alpha dashed','alphadash'],['Hollow dashed','nofilldash']];
+const SV=(p,w=18)=>`<svg width="${w}" height="${w}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${p}"/></svg>`;
+const CKP='M3.5 6.5l1.8 1.8L8.5 5M3.5 12.5l1.8 1.8 3.2-3.3M3.5 18.5l1.8 1.8 3.2-3.3M12 7h9M12 13h9M12 19h9';
+const IC={chev:SV('M6 9l6 6 6-6'),pen:SV('M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4'),x:SV('M6 6l12 12M18 6L6 18',20),sm:SV(CKP,14),plus:SV('M12 5v14M5 12h14',20),grip:'<svg width="14" height="20" viewBox="0 0 14 20" fill="currentColor" aria-hidden="true"><circle cx="4" cy="4" r="1.6"/><circle cx="10" cy="4" r="1.6"/><circle cx="4" cy="10" r="1.6"/><circle cx="10" cy="10" r="1.6"/><circle cx="4" cy="16" r="1.6"/><circle cx="10" cy="16" r="1.6"/></svg>'};
+const CHECK='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+const pc=t=>P[t.c]||P[17];
+const chipH=t=>`<span class="tg${t.s?' '+t.s:''}" style="--cc:${pc(t)[0]};--tx:${pc(t)[1]}"><svg class="ic" width="12" height="12" stroke="currentColor" fill="none" aria-hidden="true"><use href="#ti"/></svg><span class="lb">${esc(t.n||'Tag')}</span></span>`;
+const OLD=[17,12,14,11,3,9,5,15,11,9];
+function migrate(){let ch=0;S.tags.forEach(t=>{if(t.s===undefined){t.c=OLD[t.c]??17;t.s='';ch=1}});return ch}
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const uid=()=>Math.random().toString(36).slice(2,9);
@@ -140,7 +256,7 @@ const dd=s=>Math.round((new Date(s+'T00:00')-today())/864e5);
 const rel=n=>n<0?`${-n} day${n<-1?'s':''} overdue`:n==0?'today':`in ${n} day${n>1?'s':''}`;
 const tt=()=>new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
 const status=(m,e)=>{$('#save').textContent=m;$('#save').className=e?'err':''};
-let S,KEY,SALT,CFG,ENV,base=0,tm,edit,D=null,lastDrag=0;
+let S,KEY,SALT,CFG,ENV,base=0,tm,edit,D=null,lastDrag=0,pwNew=0,FT=new Set(),openId=null,CL=[],clOn=false;
 
 /* ---- crypto: PBKDF2 -> AES-256-GCM, all in the browser ---- */
 const b64=u=>{let s='';u.forEach(c=>s+=String.fromCharCode(c));return btoa(s)};
@@ -152,11 +268,21 @@ async function enc(o){const iv=crypto.getRandomValues(new Uint8Array(12));
 async function dec(e,k=KEY){return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:ub(e.iv)},k,ub(e.ct))))}
 const seal=async()=>({v:1,ts:S.ts,salt:b64(SALT),...await enc(S)});
 
+/* ---- remember this device: a non-extractable key kept in IndexedDB ---- */
+const idb=()=>new Promise((res,rej)=>{const r=indexedDB.open('kb',1);r.onupgradeneeded=()=>r.result.createObjectStore('k');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});
+const idbGet=async()=>{const d=await idb();return new Promise((res,rej)=>{const q=d.transaction('k').objectStore('k').get('dev');q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})};
+const idbSet=async v=>{const d=await idb();return new Promise((res,rej)=>{const t=d.transaction('k','readwrite');v===null?t.objectStore('k').delete('dev'):t.objectStore('k').put(v,'dev');t.oncomplete=()=>res();t.onerror=()=>rej(t.error)})};
+const remSave=async()=>{try{await idbSet({key:KEY,salt:b64(SALT)});localStorage.kb_rem='1'}catch{delete localStorage.kb_rem}};
+const remClear=async()=>{try{await idbSet(null)}catch{}delete localStorage.kb_rem};
+
 /* ---- unlock ---- */
 async function boot(){
  try{ENV=JSON.parse(localStorage[LS])}catch{}
  try{const r=await fetch(FILE+'?t='+Date.now(),{cache:'no-store'});if(r.ok){const e=await r.json();if(!ENV||e.ts>ENV.ts)ENV=e}}catch{}
- $('#lt').textContent=ENV?'Enter your password to unlock.':'First run: choose a password. It encrypts everything and cannot be recovered.';
+ if(ENV&&localStorage.kb_rem){
+  try{const r=await idbGet();if(r&&r.salt==ENV.salt){KEY=r.key;SALT=ub(r.salt);S=await dec(ENV);base=ENV.ts;PW='';return await enter()}}catch{}
+  await remClear()}
+ $('#lt').textContent=ENV?'Enter your password to unlock.':'No saved board found here. If you already use one on another device, close this and reload in a minute before creating a new one. Otherwise choose a password; it cannot be recovered.';
  $('#pw2').hidden=!!ENV;$('#fb').hidden=!(ENV&&localStorage.kb_face&&window.PublicKeyCredential);if($('#fb').hidden)$('#pw').focus();
 }
 const lm=m=>$('#lm').textContent=m;
@@ -166,12 +292,15 @@ async function openWith(pw){
  try{
   if(!ENV){if(pw.length<8||pw!==$('#pw2').value)return lm('Use 8+ characters and repeat it exactly.');
    SALT=crypto.getRandomValues(new Uint8Array(16));KEY=await derive(pw,SALT);
-   S={ts:0,tasks:[],tags:[{id:uid(),n:'Work',c:0},{id:uid(),n:'Lab',c:5},{id:uid(),n:'Supplier',c:6},{id:uid(),n:'Urgent',c:2}]}}
+   S={ts:0,tasks:[],tags:[{id:uid(),n:'Work',c:17,s:''},{id:uid(),n:'Lab',c:9,s:''},{id:uid(),n:'Supplier',c:5,s:''},{id:uid(),n:'Urgent',c:14,s:''}]}}
   else{SALT=ub(ENV.salt);KEY=await derive(pw,SALT);S=await dec(ENV);base=ENV.ts}
  }catch{return lm('Wrong password.')}PW=pw;
+ if($('#rem').checked)await remSave();else await remClear();
+ await enter()}
+async function enter(){
  try{CFG=await dec(JSON.parse(localStorage[LC]))}catch{CFG=null}
- $('#lock').hidden=true;$('#pw').value=$('#pw2').value='';render();
- if(CFG)await sync(false);else if(ENV)status('Unlocked '+tt());if(!ENV)save();
+ const mg=migrate();$('#lock').hidden=true;$('#pw').value=$('#pw2').value='';render();
+ if(CFG)await sync(false);else if(ENV)status('Unlocked '+tt());if(!ENV||mg)save();
 }
 
 /* ---- save + GitHub sync ---- */
@@ -179,58 +308,79 @@ function save(){status('Saving…');clearTimeout(tm);tm=setTimeout(async()=>{
  S.tasks=S.tasks.filter(t=>!t.del||Date.now()-t.u<2592e6);
  S.ts=Date.now();localStorage[LS]=JSON.stringify(await seal());status('Saved locally '+tt());if(CFG)sync(true)},600)}
 function merge(R){const m=new Map(S.tasks.map(t=>[t.id,t]));R.tasks.forEach(t=>{const o=m.get(t.id);if(!o||t.u>o.u)m.set(t.id,t)});
- if(R.ts>S.ts)S.tags=R.tags;S.tasks=[...m.values()];S.ts=Math.max(S.ts,R.ts)}
+ if(R.ts>S.ts){S.tags=R.tags;migrate()}S.tasks=[...m.values()];S.ts=Math.max(S.ts,R.ts)}
 async function sync(write){
  const u=`https://api.github.com/repos/${CFG.repo}/contents/${CFG.path}`,h={Authorization:'Bearer '+CFG.token,Accept:'application/vnd.github+json'};
  try{
   let sha,g=await fetch(`${u}?ref=${CFG.branch}&t=${Date.now()}`,{headers:h});
   if(g.ok){const j=await g.json();sha=j.sha;const re=JSON.parse(atob(j.content.replace(/\s/g,'')));
-   if(re.ts!==base&&re.salt==b64(SALT)){merge(await dec(re));base=re.ts;render()}}
+   if(re.salt!=b64(SALT)){if(!pwNew)throw Error('The repo holds a board made with a different password, so I did not overwrite it')}else if(re.ts!==base){merge(await dec(re));base=re.ts;render()}}
   else if(g.status!=404)throw Error('GitHub error '+g.status+' (check repo and token)');
   if(!write&&sha){localStorage[LS]=JSON.stringify(await seal());return status('Synced with GitHub '+tt())}
   S.ts=Date.now();const env=await seal();localStorage[LS]=JSON.stringify(env);
   const p=await fetch(u,{method:'PUT',headers:h,body:JSON.stringify({message:'kanban update',content:btoa(JSON.stringify(env)),branch:CFG.branch,sha})});
   if(!p.ok)throw Error(p.status==409?'Conflict, change something to retry':'GitHub error '+p.status);
-  base=env.ts;status('Saved to GitHub '+tt());
+  base=env.ts;pwNew=0;status('Saved to GitHub '+tt());
  }catch(e){status(e.message+' · kept locally',1)}
 }
 
 /* ---- render ---- */
+const sd=s=>new Date(s+'T00:00').toLocaleDateString([],{month:'short',day:'numeric'});
+const hay=t=>(t.t+' '+(t.note||'')+' '+(t.who||'')+' '+(t.cl||[]).map(x=>x.t).join(' ')).toLowerCase();
+const flt=()=>({q:$('#q').value.toLowerCase(),fe:$('#fe').value,arch:$('#ar').checked,lim:iso(new Date(today()-7*864e5))});
+const vis=(t,f)=>(!f.q||hay(t).includes(f.q))&&(!FT.size||t.tags.some(i=>FT.has(i)))&&(!f.fe||t.eff==f.fe)&&(t.col!='done'||f.arch||(t.done||'')>=f.lim);
 function card(t){
- const tags=t.tags.map(i=>S.tags.find(x=>x.id==i)).filter(Boolean),c=tags[0]?PAL[tags[0].c][1]:'';
- let h=`<div class="card${t.col=='done'?' dn':''}" data-id="${t.id}"${c?` style="--c:${c}"`:''}><div class="ti">${esc(t.t)}</div>`;
+ const tags=t.tags.map(i=>S.tags.find(x=>x.id==i)).filter(Boolean),c=tags[0]?pc(tags[0])[0]:'';
+ const L=t.cl||[],nd=L.filter(x=>x.d).length,n=t.date?dd(t.date):null,sm=[];
+ if(t.col=='others'&&t.who)sm.push(esc(t.who));
+ if(t.col=='done')sm.push('Done '+(t.done?sd(t.done):''));
+ else if(t.date)sm.push(n<=1?`<span class="due${n<0?' late':''}">${n<0?rel(n):(t.col=='others'?'expected ':'due ')+rel(n)}</span>`:sd(t.date));
+ if(L.length)sm.push(`<span class="sc">${IC.sm}${nd}/${L.length}</span>`);
+ let h=`<div class="card${t.col=='done'?' dn':''}${openId===t.id?' open':''}" data-id="${t.id}"${c?` style="--c:${c}"`:''}><div class="th"><div class="tw"><div class="ti">${esc(t.t)}</div><div class="sm">${sm.join(' · ')}</div></div><button type="button" class="ib ed" data-a="edit" aria-label="Edit task">${IC.pen}</button><button type="button" class="ib cx" data-a="close" aria-label="Close task">${IC.x}</button><span class="chev">${IC.chev}</span></div><div class="cd">`;
  if(t.col=='others'&&t.who)h+=`<div class="mu">${esc(t.who)}</div>`;
  if(t.note)h+=`<div class="mu">${esc(t.note)}</div>`;
  if(t.col=='done')h+=`<div class="mu">Done ${t.done}</div>`;
- else if(t.date){const n=dd(t.date);h+=`<div class="${n<=1?'due'+(n<0?' late':''):'mu'}">${t.col=='others'?'Expected':'Due'} ${t.date}${n<=1?' · '+rel(n):''}</div>`}
+ else if(t.date){h+=`<div class="${n<=1?'due'+(n<0?' late':''):'mu'}">${t.col=='others'?'Expected':'Due'} ${t.date}${n<=1?' · '+rel(n):''}</div>`}
  if(t.col=='others')h+=`<div class="mu">${t.nud.length?'Nudged '+t.nud[t.nud.length-1]+(t.nud.length>1?` (${t.nud.length}×)`:''):'Not nudged yet'}</div>`;
- if(tags.length||t.eff)h+=`<div class="tags">${tags.map(x=>`<span class="pill" style="background:${PAL[x.c][0]};border-color:${PAL[x.c][1]}">${esc(x.n)}</span>`).join('')}${t.eff?`<span class="pill eff">${t.eff}</span>`:''}</div>`;
+ if(L.length)h+=`<div class="clp"><div class="bar2"><span style="width:${Math.round(nd/L.length*100)}%"></span></div>${nd} of ${L.length}</div>`+L.map((x,i)=>`<div class="cr2"><label class="cbw"><input type="checkbox" class="cb" data-i="${i}"${x.d?' checked':''} aria-label="${esc(x.t)}"></label><span class="ct${x.d?' done':''}">${esc(x.t)}</span></div>`).join('');
+ if(tags.length||t.eff)h+=`<div class="tags">${tags.map(chipH).join('')}${t.eff?`<span class="pill eff">${t.eff}</span>`:''}</div>`;
  if(t.col!='done'&&t.col!='liq')h+=`<div class="acts">${t.col=='others'?'<button data-a="nudge">Nudge</button><button data-a="got">Got it</button>':''}<button data-a="done">Done</button></div>`;
- return h+'</div>'}
+ return h+'</div></div>'}
 function render(){
- const q=$('#q').value.toLowerCase(),ft=$('#ft').value,fe=$('#fe').value,arch=$('#ar').checked,lim=iso(new Date(today()-7*864e5));
- $('#ft').innerHTML='<option value="">All tags</option>'+S.tags.map(t=>`<option value="${t.id}">${esc(t.n)}</option>`).join('');$('#ft').value=ft;
+ FT.forEach(i=>{if(!S.tags.some(x=>x.id==i))FT.delete(i)});
+ $('#fbtn').classList.toggle('act',FT.size>0);$('#fbdg').textContent=FT.size;$('#fbdg').hidden=!FT.size;
+ const f=flt();
  const sx=M.scrollLeft,sc={};$$('.col').forEach(c=>sc[c.dataset.col]=c.querySelector('.list').scrollTop);
  const colH=([id,n,s])=>{
-  const L=S.tasks.filter(t=>!t.del&&t.col==id&&(!q||(t.t+t.note+t.who).toLowerCase().includes(q))&&(!ft||t.tags.includes(ft))&&(!fe||t.eff==fe)&&(id!='done'||arch||t.done>=lim))
-   .sort((a,b)=>id=='done'?b.done.localeCompare(a.done):(a.date||'9').localeCompare(b.date||'9'));
+  const L=S.tasks.filter(t=>!t.del&&t.col==id&&vis(t,f))
+   .sort((a,b)=>id=='done'?(b.done||'').localeCompare(a.done||''):(a.date||'9').localeCompare(b.date||'9'));
   return`<section class="col" data-col="${id}"><div class="ch"><b>${n}</b><span>${L.length}</span></div>${s?`<div class="sub">${s}</div>`:''}<div class="list">${L.map(card).join('')}</div>${id=='done'||id=='liq'?'':'<button class="add" data-a="add">+ Add task</button>'}</section>`};
  $('#main').innerHTML=colH(C[0])+colH(C[1])+colH(C[2])+`<div class="stack">${colH(C[3])+colH(C[4])}</div>`;
  $$('.col').forEach(c=>c.querySelector('.list').scrollTop=sc[c.dataset.col]||0);M.scrollLeft=sx;updPg()}
 const touch=t=>{t.u=Date.now();save();render()};
 const mv=(t,c)=>{t.col=c;t.done=c=='done'?iso(today()):''};
-['#q','#ft','#fe','#ar'].forEach(s=>$(s).oninput=render);
+['#q','#fe','#ar'].forEach(s=>$(s).oninput=render);
 
 /* ---- board interactions ---- */
 const M=$('#main');
 M.onclick=e=>{if(Date.now()-lastDrag<400)return;const b=e.target.closest('button'),c=e.target.closest('.card'),col=e.target.closest('.col');
  if(b&&b.dataset.a=='add')return openEd({col:col.dataset.col});
- if(!c)return;const t=S.tasks.find(x=>x.id==c.dataset.id);
- if(b){const a=b.dataset.a;if(a=='nudge')t.nud.push(iso(today()));if(a=='got')t.col='mine';if(a=='done')mv(t,'done');return touch(t)}
+ if(!c)return;const t=S.tasks.find(x=>x.id==c.dataset.id);if(!t)return;
+ const ck=e.target.closest('input.cb');
+ if(ck){const it=(t.cl||[])[+ck.dataset.i];if(it){it.d=ck.checked?1:0;touch(t)}return}
+ if(e.target.closest('label.cbw'))return;
+ if(b){const a=b.dataset.a;
+  if(a=='edit')return openEd(t);
+  if(a=='close'){openId=null;return render()}
+  if(a=='nudge')t.nud.push(iso(today()));
+  if(a=='got')t.col='mine';
+  if(a=='done'){mv(t,'done');openId=null}
+  return touch(t)}
+ if(car()){openId=openId==t.id?null:t.id;return render()}
  openEd(t)};
 /* pointer drag: mouse drags at once, touch needs a short press so scrolling still works */
 const car=()=>matchMedia('(max-width:900px)').matches;
-M.onpointerdown=e=>{if(e.button>0||e.target.closest('button'))return;const c=e.target.closest('.card');if(!c)return;
+M.onpointerdown=e=>{if(e.button>0||e.target.closest('button,label,input'))return;const c=e.target.closest('.card');if(!c)return;
  D={id:c.dataset.id,c,x:e.clientX,y:e.clientY,sx:e.clientX,sy:e.clientY,on:0,touch:e.pointerType!='mouse'};
  if(D.touch)D.tm=setTimeout(dragStart,320)};
 addEventListener('pointermove',e=>{if(!D)return;D.x=e.clientX;D.y=e.clientY;
@@ -268,27 +418,77 @@ $('#pg').onclick=e=>{const b=e.target.closest('button');if(b)$$('.col')[b.datase
 
 /* ---- edit dialog ---- */
 function openEd(t){
- edit=t.id?t:{id:uid(),t:'',note:'',col:t.col,who:'',date:'',eff:'',tags:[],nud:[],done:'',u:0};
+ edit=t.id?t:{id:uid(),t:'',note:'',cl:[],col:t.col,who:'',date:'',eff:'',tags:[],nud:[],done:'',u:0};
+ CL=(edit.cl||[]).map(x=>({...x}));clOn=CL.length>0;
  $('#e_t').value=edit.t;$('#e_note').value=edit.note;$('#e_who').value=edit.who;$('#e_date').value=edit.date;$('#e_eff').value=edit.eff;
  $('#e_col').innerHTML=C.map(c=>`<option value="${c[0]}">${c[1]}</option>`).join('');$('#e_col').value=edit.col;
- $('#e_tags').innerHTML=S.tags.map(x=>`<span class="pill tgl${edit.tags.includes(x.id)?' on':''}" data-id="${x.id}" style="background:${PAL[x.c][0]};border-color:${PAL[x.c][1]}">${esc(x.n)}</span>`).join('');
- $('#e_del').hidden=!t.id;colUi();$('#ed').showModal()}
+ $('#e_tags').innerHTML=S.tags.map(x=>`<button type="button" class="tgb${edit.tags.includes(x.id)?' on':''}" data-id="${x.id}" aria-pressed="${edit.tags.includes(x.id)}">${chipH(x)}</button>`).join('');
+ $('#e_del').hidden=!t.id;colUi();renderCl();$('#ed').showModal()}
 function colUi(){const o=$('#e_col').value=='others';$('#e_wr').hidden=!o;$('#e_dl').textContent=o?'Expected':'Due'}
 $('#e_col').onchange=colUi;
-$('#e_tags').onclick=e=>{const p=e.target.closest('.tgl');if(p)p.classList.toggle('on')};
+$('#e_tags').onclick=e=>{const p=e.target.closest('.tgb');if(p)p.setAttribute('aria-pressed',p.classList.toggle('on'))};
 $('#e_x').onclick=()=>$('#ed').close();
 $('#e_del').onclick=()=>{if(confirm('Delete this task?')){edit.del=1;touch(edit);$('#ed').close()}};
 $('#ef').onsubmit=()=>{const c=$('#e_col').value;
- Object.assign(edit,{t:$('#e_t').value.trim(),note:$('#e_note').value,who:$('#e_who').value,date:$('#e_date').value,eff:$('#e_eff').value,tags:$$('#e_tags .on').map(x=>x.dataset.id)});
+ Object.assign(edit,{t:$('#e_t').value.trim(),note:$('#e_note').value,cl:clOn?CL.filter(x=>x.t.trim()).map(x=>({id:x.id,t:x.t.trim(),d:x.d?1:0})):[],who:$('#e_who').value,date:$('#e_date').value,eff:$('#e_eff').value,tags:$$('#e_tags .on').map(x=>x.dataset.id)});
  if(c!=edit.col)mv(edit,c);if(!S.tasks.includes(edit))S.tasks.push(edit);touch(edit)};
 
-/* ---- tags dialog ---- */
-function tagsUi(){$('#tg_list').innerHTML=S.tags.map((t,i)=>`<div class="row"><input value="${esc(t.n)}" data-i="${i}" data-k="n"><select data-i="${i}" data-k="c">${CN.map((n,j)=>`<option value="${j}"${j==t.c?' selected':''}>${n}</option>`).join('')}</select><button data-i="${i}" data-k="x">✕</button></div>`).join('')}
-$('#bt').onclick=()=>{tagsUi();$('#tg').showModal()};
-$('#tg_list').onchange=e=>{const{i,k}=e.target.dataset;S.tags[i][k]=k=='c'?+e.target.value:e.target.value;S.ts=Date.now();save();render()};
-$('#tg_list').onclick=e=>{const b=e.target.closest('button');if(!b)return;const t=S.tags[b.dataset.i];
- if(confirm('Remove tag "'+t.n+'"?')){S.tags.splice(b.dataset.i,1);S.tasks.forEach(x=>{if(x.tags.includes(t.id)){x.tags=x.tags.filter(i=>i!=t.id);x.u=Date.now()}});tagsUi();save();render()}};
-$('#tg_add').onclick=()=>{S.tags.push({id:uid(),n:'New tag',c:S.tags.length%10});tagsUi();save();render()};
+/* ---- checklist inside the note box ---- */
+const clw=$('#e_cll');
+function renderCl(){
+ $('#e_cl').setAttribute('aria-pressed',clOn);$('#e_cl').setAttribute('aria-label',clOn?'Hide checklist':'Add checklist');clw.hidden=!clOn;
+ if(!clOn)return;
+ clw.innerHTML=CL.map(x=>`<div class="cr" data-id="${x.id}"><span class="grip" data-g="1" aria-hidden="true">${IC.grip}</span><label class="cbw"><input class="cb" type="checkbox"${x.d?' checked':''} aria-label="Done"></label><input class="it${x.d?' done':''}" value="${esc(x.t)}" aria-label="Item text" autocomplete="off"><button type="button" class="ib" data-a="rm" aria-label="Delete item">${IC.x}</button></div>`).join('')+`<div class="cr"><span class="plus" aria-hidden="true">${IC.plus}</span><input class="it" id="cl_add" placeholder="List item" aria-label="New list item" autocomplete="off"></div>`}
+const clFocus=(id,end)=>{const i=clw.querySelector(`.cr[data-id="${id}"] input.it`);if(i){i.focus();if(end)i.setSelectionRange(i.value.length,i.value.length)}};
+$('#e_cl').onclick=()=>{
+ if(!clOn){clOn=true;if(!CL.length)CL=[{id:uid(),t:'',d:0}];renderCl();clFocus(CL[0].id,1);return}
+ const ln=CL.filter(x=>x.t.trim()).map(x=>(x.d?'✓ ':'')+x.t.trim());
+ if(ln.length){const n=$('#e_note');n.value=(n.value&&!n.value.endsWith('\n')?n.value+'\n':n.value)+ln.join('\n')}
+ CL=[];clOn=false;renderCl()};
+const rowOf=e=>e.target.closest('.cr[data-id]');
+const itOf=e=>{const r=rowOf(e);return r&&CL.find(y=>y.id==r.dataset.id)};
+clw.addEventListener('input',e=>{const t=e.target;if(!t.classList.contains('it'))return;
+ if(t.id=='cl_add'){const v=t.value;if(!v)return;const x={id:uid(),t:v,d:0};CL.push(x);renderCl();clFocus(x.id,1);return}
+ const x=itOf(e);if(x)x.t=t.value});
+clw.addEventListener('change',e=>{if(!e.target.classList.contains('cb'))return;const x=itOf(e);if(!x)return;x.d=e.target.checked?1:0;rowOf(e).querySelector('input.it').classList.toggle('done',!!x.d)});
+clw.addEventListener('keydown',e=>{const t=e.target;if(!t.classList.contains('it'))return;
+ if(e.key=='Enter'){e.preventDefault();if(t.id=='cl_add')return;const i=CL.indexOf(itOf(e)),x={id:uid(),t:'',d:0};CL.splice(i+1,0,x);renderCl();clFocus(x.id,1)}
+ else if(e.key=='Backspace'&&!t.value&&t.id!='cl_add'){e.preventDefault();const i=CL.indexOf(itOf(e));CL.splice(i,1);renderCl();const p=CL[i-1]||CL[0];if(p)clFocus(p.id,1)}});
+clw.addEventListener('click',e=>{const b=e.target.closest('[data-a="rm"]');if(!b)return;const x=itOf(e);CL=CL.filter(y=>y!==x);renderCl()});
+clw.addEventListener('pointerdown',e=>{const g=e.target.closest('[data-g]');if(!g)return;e.preventDefault();
+ const row=g.closest('.cr');row.classList.add('lift');
+ const mvf=ev=>{const nx=[...clw.querySelectorAll('.cr[data-id]')].filter(r=>r!==row).find(r=>{const b=r.getBoundingClientRect();return ev.clientY<b.top+b.height/2});clw.insertBefore(row,nx||clw.lastElementChild)};
+ const up=()=>{removeEventListener('pointermove',mvf);removeEventListener('pointerup',up);removeEventListener('pointercancel',up);row.classList.remove('lift');
+  const ids=[...clw.querySelectorAll('.cr[data-id]')].map(r=>r.dataset.id);CL.sort((a,b)=>ids.indexOf(a.id)-ids.indexOf(b.id))};
+ addEventListener('pointermove',mvf);addEventListener('pointerup',up);addEventListener('pointercancel',up)});
+
+/* ---- tags dialog: pick a color, then a style; the editor opens only for a selected or new tag ---- */
+let sel=null,DR=null;
+const cur=()=>S.tags.find(t=>t.id==sel)||(DR&&DR.id==sel?DR:null);
+function tagsUi(){
+ const all=DR?[...S.tags,DR]:S.tags,t=cur();
+ $('#tg_list').innerHTML=all.map(x=>`<button type="button" class="tb${x.id==sel?' on':''}" data-id="${x.id}" aria-pressed="${x.id==sel}">${chipH(x.n?x:{...x,n:'New tag'})}</button>`).join('')+'<button type="button" class="nw" id="tg_add">+ New tag</button>';
+ $('#tg_ed').hidden=!t;$('#tg_hint').hidden=!!t;$('#tg_del').hidden=!t;
+ if(!t)return;
+ $('#tg_sw').innerHTML=P.map((q,i)=>`<button type="button" class="sw${i==t.c?' on':''}" data-c="${i}" style="background:${q[0]};color:${q[1]}" aria-label="${q[2]}" aria-pressed="${i==t.c}">${i==t.c?CHECK:''}</button>`).join('');
+ $('#tg_st').innerHTML=STY.map(([n,k])=>`<button type="button" class="st${(t.s||'')==k?' on':''}" data-s="${k}" aria-pressed="${(t.s||'')==k}">${chipH({...t,s:k,n:t.n||'Tag'})}<span class="cap">${n}</span></button>`).join('');
+ $('#tg_pv').style.borderLeftColor=pc(t)[0];
+ $('#tg_pv').innerHTML=`<div class="ti">Example task</div><div class="mu">Due ${iso(today())}</div><div class="tags">${chipH(t)}</div>`}
+function commit(t){if(t===DR&&t.n.trim()){S.tags.push(DR);DR=null}if(S.tags.includes(t)){S.ts=Date.now();save();render()}tagsUi()}
+$('#bt').onclick=()=>{sel=null;DR=null;tagsUi();$('#tg').showModal()};
+$('#tg').addEventListener('close',()=>{sel=null;DR=null});
+$('#tg_list').onclick=e=>{const b=e.target.closest('button');if(!b)return;
+ if(b.id=='tg_add'){DR={id:uid(),n:'',c:17,s:''};sel=DR.id;$('#tg_n').value='';tagsUi();$('#tg_n').focus();return}
+ const id=b.dataset.id;sel=sel==id?null:id;if(DR&&DR.id!=sel)DR=null;
+ const t=cur();if(t)$('#tg_n').value=t.n;tagsUi()};
+$('#tg_n').oninput=e=>{const t=cur();if(t){t.n=e.target.value;commit(t)}};
+$('#tg_sw').onclick=e=>{const b=e.target.closest('[data-c]'),t=cur();if(b&&t){t.c=+b.dataset.c;commit(t)}};
+$('#tg_st').onclick=e=>{const b=e.target.closest('[data-s]'),t=cur();if(b&&t){t.s=b.dataset.s;commit(t)}};
+$('#tg_del').onclick=()=>{const t=cur();if(!t)return;
+ if(t===DR){DR=null;sel=null;return tagsUi()}
+ if(!confirm('Remove tag "'+t.n+'"?'))return;
+ S.tags=S.tags.filter(x=>x!==t);S.tasks.forEach(x=>{if(x.tags.includes(t.id)){x.tags=x.tags.filter(i=>i!=t.id);x.u=Date.now()}});
+ sel=null;S.ts=Date.now();save();render();tagsUi()};
 $('#tg_ok').onclick=()=>$('#tg').close();
 
 /* ---- data file / sync / password ---- */
@@ -300,20 +500,21 @@ $('#c_ok').onclick=async()=>{const repo=$('#c_repo').value.trim().replace(/^http
  localStorage[LC]=JSON.stringify(await enc(CFG));$('#dd').close();status('Syncing…');await sync(true)};
 $('#c_off').onclick=()=>{CFG=null;delete localStorage[LC];$('#dd').close();status('GitHub sync removed')};
 $('#pwc').onclick=async()=>{const p=$('#np').value;if(p.length<8)return alert('Use 8+ characters.');
- SALT=crypto.getRandomValues(new Uint8Array(16));KEY=await derive(p,SALT);if(CFG)localStorage[LC]=JSON.stringify(await enc(CFG));
- $('#np').value='';save();PW=p;delete localStorage.kb_face;faceUi();alert('Password changed. Face ID was turned off on this device; turn it on again. Other devices need the new password.')};
+ SALT=crypto.getRandomValues(new Uint8Array(16));KEY=await derive(p,SALT);if(localStorage.kb_rem)await remSave();if(CFG)localStorage[LC]=JSON.stringify(await enc(CFG));
+ $('#np').value='';save();PW=p;pwNew=1;delete localStorage.kb_face;faceUi();alert('Password changed. Face ID was turned off on this device; turn it on again. Other devices need the new password.')};
 $('#bx').onclick=async()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(await seal())],{type:'application/json'}));a.download=FILE;a.click()};
 $('#bi').onclick=()=>$('#fi').click();
 $('#fi').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
  try{const env=JSON.parse(await f.text()),p=prompt('Password of this file:');
   const d=await dec(env,await derive(p||'',ub(env.salt)));
-  if(confirm('Replace the current board with the imported one?')){S=d;S.tasks.forEach(t=>t.u=Date.now());S.ts=Date.now();save();render()}
+  if(confirm('Replace the current board with the imported one?')){S=d;migrate();S.tasks.forEach(t=>t.u=Date.now());S.ts=Date.now();save();render()}
  }catch{alert('Could not import: wrong password or not an encrypted Kanban file.')}};
 /* ---- Face ID: a passkey with the PRF extension wraps the password on this device ---- */
 const prfGet=async(id,salt)=>{const a=await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:'public-key',id}],userVerification:'required',extensions:{prf:{eval:{first:salt}}}}});
  const r=a.getClientExtensionResults().prf?.results?.first;if(!r)throw Error('Face ID did not return a key.');return r};
 const faceUi=()=>{$('#fid_wrap').hidden=!window.PublicKeyCredential;$('#fid').textContent=localStorage.kb_face?'Turn off Face ID':'Turn on Face ID'};
 async function faceOn(){
+ if(!PW)throw Error('Unlock with your password once to turn on Face ID.');
  const salt=crypto.getRandomValues(new Uint8Array(32)),cred=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:'My Kanban'},user:{id:crypto.getRandomValues(new Uint8Array(16)),name:'kanban',displayName:'My Kanban'},pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required',residentKey:'preferred'},extensions:{prf:{}}}});
  if(!cred.getClientExtensionResults().prf?.enabled)throw Error('This browser cannot unlock with Face ID (needs iOS 18 or newer).');
  const k=await crypto.subtle.importKey('raw',await prfGet(cred.rawId,salt),'AES-GCM',false,['encrypt']),iv=crypto.getRandomValues(new Uint8Array(12));
@@ -328,7 +529,18 @@ $('#fb').onclick=async()=>{
  if(!$('#lock').hidden){delete localStorage.kb_face;$('#fb').hidden=true;lm('Face ID is out of date. Use your password, then turn Face ID on again.')}};
 /* ---- show the current password (hides itself after 15 s or when the dialog closes) ---- */
 let pwT;const hidePw=()=>{clearTimeout(pwT);$('#cp').value='';$('#cp').type='password';$('#cps').textContent='Show'};
-$('#cps').onclick=()=>{if($('#cp').type=='text')return hidePw();$('#cp').value=PW;$('#cp').type='text';$('#cps').textContent='Hide';pwT=setTimeout(hidePw,15000)};
+$('#cps').onclick=()=>{if($('#cp').type=='text')return hidePw();if(!PW)return alert('The password is not kept on a remembered device. Press Lock, then unlock with the password to see it.');$('#cp').value=PW;$('#cp').type='text';$('#cps').textContent='Hide';pwT=setTimeout(hidePw,15000)};
 $('#dd').addEventListener('close',hidePw);
+/* ---- tag filter sheet ---- */
+const fs=$('#fs');
+function fsUi(){
+ $('#fs_list').innerHTML=S.tags.map(x=>`<button type="button" class="tb${FT.has(x.id)?' on':''}" data-id="${x.id}" aria-pressed="${FT.has(x.id)}">${chipH(x)}</button>`).join('')||'<p class="mu">No tags yet.</p>';
+ const n=S.tasks.filter(t=>!t.del&&vis(t,flt())).length;$('#fs_go').textContent=`Show ${n} task${n==1?'':'s'}`;$('#fs_clr').hidden=!FT.size}
+$('#fbtn').onclick=()=>{fsUi();fs.showModal()};
+$('#fs_list').onclick=e=>{const b=e.target.closest('button');if(!b)return;const id=b.dataset.id;FT.has(id)?FT.delete(id):FT.add(id);fsUi();render()};
+$('#fs_clr').onclick=()=>{FT.clear();fsUi();render()};
+$('#fs_go').onclick=()=>fs.close();
+fs.addEventListener('click',e=>{if(e.target!==fs)return;const r=fs.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)fs.close()});
+$('#blk').onclick=async()=>{await remClear();location.reload()};
 boot();
 </script></body></html>
